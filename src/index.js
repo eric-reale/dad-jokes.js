@@ -23,22 +23,32 @@ async function fetchDadJoke() {
     },
   });
   const data = await response.json();
+  // console.log(data);
+  return data;
+}
+
+async function fetchGeneralJoke() {
+    const response = await fetch('https://official-joke-api.appspot.com/jokes/general/random', {
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+  const data = await response.json();
+  // console.log(data);
   return data;
 }
 
 async function handleClick(e) {
   switch (e.currentTarget.textContent.trim()) {
-    case "Dad Jokes": console.log("dad jokes");
+    case "Dad Jokes": const { joke } = await fetchDadJoke();
+      jokeParagraph.textContent = joke;
+      break;
+    case "Tronald Dump": let jokeFetched = await fetchGeneralJoke();
+      jokeFetched = jokeFetched[0];
+      jokeParagraph.textContent = jokeFetched.setup
       break;
     default: console.log('No click matches');
   }
-
-
-
-  // const { joke } = await fetchDadJoke();
-  // console.log(joke);
-  // jokeHolder.textContent = joke;
-  // jokeButton.textContent = randomItemFromArray(buttonText, jokeButton.textContent); // here's where you're passing in the previous one
 }
 
 cards.forEach(card => {
