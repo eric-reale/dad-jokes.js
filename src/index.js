@@ -3,6 +3,8 @@ const jokeParagraph = document.querySelector('#joke-paragraph');
 const jokePunchline = document.querySelector('#joke-punchline');
 const shareButtons = document.querySelector('.share-buttons');
 
+let executed = false;
+
 const dadJokeEndpoint = 'https://icanhazdadjoke.com';
 const generalJokeEndpoing = 'https://official-joke-api.appspot.com/jokes/general/random';
 const programmingJokeEndpoint = 'https://official-joke-api.appspot.com/jokes/programming/random';
@@ -36,6 +38,7 @@ async function fetchJoke(endpoint) {
 }
 
 async function buttonClass() {
+  if (executed != true) {
   await wait(2500);
   html = `
         <button class="animate-text icons button button-primary"><i class="icons like-button fas fa-thumbs-up"></i></button>
@@ -51,7 +54,9 @@ async function buttonClass() {
     likeButton.style.fontSize = "22px"
     await wait(200)
     likeButton.style.fontSize = "16px"
-  })
+  });
+}
+  executed = true;
 }
 
 async function displayJokes(jokeFetched) {
