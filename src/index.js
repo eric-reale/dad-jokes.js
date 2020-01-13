@@ -71,7 +71,7 @@ async function displayJokes(jokeFetched) {
   } else {
     let joke = jokeFetched;
     jokeParagraph.innerHTML = `
-       <h5 class="animate-text">${joke[0]}?</h5>`
+       <h5 class="animate-text">${joke[0]}${joke[1] ? "?" : ""}</h5>`
       if (joke[1]) {
       await wait(2500);
       jokePunchline.innerHTML = `
