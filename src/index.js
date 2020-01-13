@@ -36,41 +36,69 @@ async function fetchJoke(endpoint) {
 }
 
 async function buttonClass() {
-  await wait(500);
-  shareButtons.innerHTML = `
-        <button class="animate-text button button-primary">TH</button>
-        <button class="animate-text button">FB</button>
-        <button class="animate-text button">TW</button>
-        <button class="animate-text button">RD</button>
-  `}
+  await wait(2500);
+  html = `
+        <button class="animate-text icons button button-primary"><i class="icons like-button fas fa-thumbs-up"></i></button>
+        <button onclick="location.href='http://facebook.com'" class="animate-text icons button"><i class="fab fa-facebook-f"></i></button>
+        <button onclick="location.href='http://twitter.com'"class="animate-text icons button"><i class="fab fa-twitter"></i></button>
+        <button onclick="location.href='http://reddit.com'"class="animate-text icons button"><i class="fab fa-reddit"></i></button>
+  `
+  if (shareButtons.innerHTML === html) return;
+  shareButtons.innerHTML = html;
+
+  const likeButton = document.querySelector('.like-button');
+  likeButton.addEventListener('click', async function() {
+    likeButton.style.fontSize = "22px"
+    await wait(200)
+    likeButton.style.fontSize = "16px"
+  })
+}
+
+async function displayJokes(jokeFetched) {
+  if (jokeFetched[0].setup) {
+  let joke = jokeFetched[0]
+  // jokeParagraph.classList.add()
+  jokeParagraph.innerHTML = `
+       <h5 class="animate-text">${joke.setup}</h5>`
+      await wait(2500);
+      jokePunchline.innerHTML = `
+      <h5 class="animate-text" style="margin-top: 15px;">${joke.punchline}</h5>`
+  } else {
+    let joke = jokeFetched;
+    jokeParagraph.innerHTML = `
+       <h5 class="animate-text">${joke[0]}?</h5>`
+      if (joke[1]) {
+      await wait(2500);
+      jokePunchline.innerHTML = `
+      <h5 class="animate-text" style="margin-top: 15px;">${joke[1]}</h5>`
+    }
+  }
+}
+
+function dadJoke(joke) {
+  const splitJoke = joke.split("? ");
+  return splitJoke;
+}
 
 async function handleClick(e) {
   let jokeFetched;
-  jokeParagraph.innerHTML = '&nbsp;'
+  jokeParagraph.classList.add('slide-up');
+  jokePunchline.classList.add('slide-up');
+  jokeParagraph.innerHTML = '&nbsp;';
   jokePunchline.innerHTML = '&nbsp;';
   switch (e.currentTarget.textContent.trim()) {
     case "Dad Jokes": const { joke } = await fetchJoke(dadJokeEndpoint);
-      jokeParagraph.textContent = joke;
+      const splitJoke = dadJoke(joke);
+      displayJokes(splitJoke);
       break;
     case "General Jokes": jokeFetched = await fetchJoke(generalJokeEndpoing);
-      jokeFetched = jokeFetched[0];
-      jokeParagraph.innerHTML = `
-       <h5 class="animate-text">${jokeFetched.setup}</h5>`
-      await wait(2500);
-      jokePunchline.innerHTML = `
-      <h5 class="animate-text" style="margin-top: 15px;">${jokeFetched.punchline}</h5>`
+      displayJokes(jokeFetched);
       break;
     case "Programming Jokes": jokeFetched = await fetchJoke(programmingJokeEndpoint);
-      jokeFetched = jokeFetched[0];
-      jokeParagraph.textContent = jokeFetched.setup
-      await wait(2500);
-      jokePunchline.textContent = jokeFetched.punchline
+      displayJokes(jokeFetched);
       break;
     case "Knock-Knock Jokes": jokeFetched = await fetchJoke(knockknockJokeEndpoint);
-      jokeFetched = jokeFetched[0];
-      jokeParagraph.textContent = jokeFetched.setup
-      await wait(2500);
-      jokePunchline.textContent = jokeFetched.punchline
+      displayJokes(jokeFetched);
       break;
     default: null;
   }
@@ -85,4 +113,7 @@ cards.forEach(card => {
 cards.forEach(card => {
   card.addEventListener('mouseout', removeTransition);
 })
+
+
+
 

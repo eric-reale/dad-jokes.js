@@ -12,6 +12,11 @@ h1 {
   font-weight: strong;
 }
 
+.icons {
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .card-trip {
   overflow: hidden;
   background: white;
@@ -48,16 +53,29 @@ h1 {
 }
 
 .constant-div {
-  height: 50px;
+  min-height: 40px;*/
+  max-height: 60px;
   width: 100%;
 }
 
 #joke-paragraph {
-  animation: slide-up 0.4s ease;
+  animation: slide-down 0.4s ease;
+}
+
+#joke-punchline {
+  margin-top: 15px;
 }
 
 .animate-text {
   animation: slide-up 0.4s ease;
+}
+
+.slide-up {
+  animation: slide-up 0.4s ease;
+}
+
+.flip {
+  animation: flip 0.4s ease;
 }
 
 
@@ -65,6 +83,28 @@ h1 {
     0% {
         opacity: 0;
         transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flip {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
     }
     100% {
         opacity: 1;
