@@ -38,7 +38,7 @@ async function fetchJoke(endpoint) {
 }
 
 async function buttonClass() {
-  if (executed != true) {
+  if (executed !== true) {
   await wait(2500);
   html = `
         <button class="animate-text icons button button-primary"><i class="icons like-button fas fa-thumbs-up"></i></button>
@@ -117,6 +117,7 @@ cards.forEach(card => {
 
 cards.forEach(card => {
   card.addEventListener('mouseout', removeTransition);
+  document.body.addEventListener('click', removeTransition);
 })
 
 
