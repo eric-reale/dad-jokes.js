@@ -89,8 +89,8 @@ async function handleClick(e) {
   let jokeFetched;
   jokeParagraph.classList.add('slide-up');
   jokePunchline.classList.add('slide-up');
-  jokeParagraph.innerHTML = '&nbsp;';
-  jokePunchline.innerHTML = '&nbsp;';
+  jokeParagraph.innerHTML = '';
+  jokePunchline.innerHTML = '';
   switch (e.currentTarget.textContent.trim()) {
     case "Dad Jokes": const { joke } = await fetchJoke(dadJokeEndpoint);
       const splitJoke = dadJoke(joke);
